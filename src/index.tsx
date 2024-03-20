@@ -14,6 +14,7 @@ declare global {
 
 export type ContextProps = {
   options?: {};
+  children?: React.ReactNode;
 };
 
 const MathJaxContext = createContext({});
@@ -22,7 +23,7 @@ export const MathJaxProvider: React.FC<ContextProps> = ({
   children = null,
 }) => {
   const ref = useRef<HTMLElement | null>(null);
-  const [mathJax, setMathJax] = useState(window.MathJax || options);
+  const [mathJax, setMathJax] = useState(typeof window !== 'undefined' ? window.MathJax : options);
 
   useEffect(() => {
     const existingScript = document.getElementById("mathjax-script");
